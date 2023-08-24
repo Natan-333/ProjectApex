@@ -5,39 +5,49 @@ public class Servicos {
     private String conta;
     private String nome;
     private String renda;
-    String r;
+
     public Servicos() {
     }
+
     public Servicos(String agencia, String conta, String nome, String renda) {
         this.agencia = agencia;
         this.conta = conta;
         this.nome = nome;
         this.renda = renda;
     }
+
     public String getAgencia() {
         return agencia;
     }
+
     public void setAgencia(String agencia) {
         this.agencia = agencia;
     }
+
     public String getConta() {
         return conta;
     }
+
     public void setConta(String conta) {
         this.conta = conta;
     }
+
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     public String getRenda() {
         return renda;
     }
+
     public void setRenda(String renda) {
         this.renda = renda;
     }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -48,6 +58,7 @@ public class Servicos {
         result = prime * result + ((renda == null) ? 0 : renda.hashCode());
         return result;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -79,12 +90,11 @@ public class Servicos {
             return false;
         return true;
     }
+
     @Override
     public String toString() {
         return "Servicos [agencia=" + agencia + ", conta=" + conta + ", nome=" + nome + ", renda=" + renda + "]";
     }
 
-    
-    
 
 }
