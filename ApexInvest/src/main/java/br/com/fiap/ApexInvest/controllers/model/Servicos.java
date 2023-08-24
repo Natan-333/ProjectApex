@@ -5,6 +5,7 @@ public class Servicos {
     private String conta;
     private String nome;
     private String renda;
+    String r;
     public Servicos() {
     }
     public Servicos(String agencia, String conta, String nome, String renda) {
