@@ -17,7 +17,7 @@ public class ApexInvestApplication {
 	// GET /
 	@GetMapping("/")
 	public String home(){
-		return "Ola, FIAP";
+		return "ApexInvestBank";
 	}
 
 }
