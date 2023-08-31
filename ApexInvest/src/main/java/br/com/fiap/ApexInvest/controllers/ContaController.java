@@ -2,11 +2,18 @@ package br.com.fiap.ApexInvest.controllers;
 
 import br.com.fiap.ApexInvest.controllers.model.Conta;
 import br.com.fiap.ApexInvest.controllers.model.Servicos;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/conta")
 public class ContaController {
+
+    private List<Servicos> servicosList = new ArrayList<>();
 
     @GetMapping("/{cpf}/{senha}")
     public Conta login(@PathVariable long cpf, @PathVariable int senha) {
@@ -25,30 +32,38 @@ public class ContaController {
     }
 
     @PutMapping("/Transf/{cpf}/{senha}/{email}/{valorTranf}")
-    public Conta tranferencia(@PathVariable long cpf, @PathVariable int senha, @PathVariable String email, @PathVariable double valorTranf) {
-
+    public Conta transferencia(@PathVariable long cpf, @PathVariable int senha, @PathVariable String email, @PathVariable double valorTranf) {
         if ((cpf == 12345678900L) && (senha == 1234) && (email.equals("maria@example.com"))) {
             Conta contaOrigem = new Conta(1, 123, 456789, 1500.75, 1234, "João Silva", 12345678900L, 987654321L, "joao@example.com", 30);
-            Conta contaDestino = new Conta(
-                    2,
-                    456,
-                    987654,
-                    2000.50,
-                    5678,
-                    "Maria Souza",
-                    98765432100L,
-                    123456789L,
-                    "maria@example.com",
-                    28
-            );
-            System.out.println(contaOrigem+" - Antes");
-            Servicos.tranferencia(contaOrigem, contaDestino, valorTranf);
-            System.out.println(contaOrigem+" - Depois");
+
+            System.out.println(contaOrigem + " - Antes");
+            System.out.println(contaOrigem + " - Depois");
             return contaOrigem;
         } else {
             return null;
         }
-
     }
 
+    @DeleteMapping("/Servicos/{agencia}/{conta}")
+    public ResponseEntity<Object> destroyServico(@PathVariable String agencia, @PathVariable String conta) {
+        Servicos servicosEncontrados = null;
+        for (Servicos servicos : servicosList) {
+            if (servicos.getAgencia().equals(agencia) && servicos.getConta().equals(conta)) {
+                servicosEncontrados = servicos;
+                break;
+            }
+        }
+
+        if (servicosEncontrados == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        servicosList.remove(servicosEncontrados);
+        return ResponseEntity.noContent().build();
+    }
 }
+
+
+
+
+

@@ -12,4 +12,12 @@ public class Servicos {
         }
     }
 
+    public Object getAgencia() {
+        return null;
+    }
+
+    public Object getConta() {
+        return null;
+    }
+
 }
