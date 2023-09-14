@@ -1,19 +1,51 @@
-package br.com.fiap.ApexInvest.controllers.model;
+package br.com.fiap.ApexInvest.model;
+
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
+@Entity
+@Table(name = "TB_CONTA", uniqueConstraints = {
+        @UniqueConstraint(name = "UK_CONTA_NUMERO", columnNames = "CONTA_NUMERO"),
+        @UniqueConstraint(name = "UK_CONTA_CPF", columnNames = "CONTA_CPF"),
+        @UniqueConstraint(name = "UK_CONTA_EMAIL", columnNames = "CONTA_EMAIL")
+})
 public class Conta {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_CONTA")
+    @SequenceGenerator( name = "SQ_CONTA", sequenceName = "SQ_CONTA")
+    @Column(name = "ID_CONTA")
     private long id;
+
+    @Column(name = "CONTA_AGENCIA", nullable = false)
     private long agencia;
+
+    @Column(name = "CONTA_NUMERO", nullable = false, unique = true)
     private long numero;
+
+    @Column(name = "CONTA_SALDO", nullable = false)
     private double saldo;
+
+    @Column(name = "CONTA_SENHA", nullable = false)
     private int senha;
+
+    @Column(name = "CONTA_NOME", nullable = false)
     private String nome;
+
+    @Column(name = "CONTA_CPF", nullable = false, unique = true)
     private long cpf;
+
+    @Column(name = "CONTA_TELEFONE", nullable = false)
     private long telefone;
+
+    @Column(name = "CONTA_EMAIL", nullable = false, unique = true)
     private String email;
+
+    @Column(name = "CONTA_IDADE", nullable = false)
     private int idade;
+
+
 
     public Conta() {
     }
