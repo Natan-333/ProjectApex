@@ -1,9 +1,17 @@
 package br.com.fiap.ApexInvest.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.util.Objects;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "TB_CONTA", uniqueConstraints = {
         @UniqueConstraint(name = "UK_CONTA_NUMERO", columnNames = "CONTA_NUMERO"),
@@ -18,140 +26,43 @@ public class Conta {
     @Column(name = "ID_CONTA")
     private long id;
 
+    @Positive(message = "A agência deve ser um número positivo")
     @Column(name = "CONTA_AGENCIA", nullable = false)
     private long agencia;
 
+    @Positive(message = "O número da conta deve ser um número positivo")
     @Column(name = "CONTA_NUMERO", nullable = false, unique = true)
     private long numero;
 
+    @DecimalMin(value = "0.0", inclusive = true, message = "O saldo não pode ser negativo")
     @Column(name = "CONTA_SALDO", nullable = false)
     private double saldo;
 
-    @Column(name = "CONTA_SENHA", nullable = false)
-    private int senha;
 
+    @Size(min = 6, max = 6, message = "A senha deve ter 6 dígitos")
+    @Column(name = "CONTA_SENHA", nullable = false)
+    private String senha;
+
+    @NotBlank(message = "O nome não pode estar em branco")
     @Column(name = "CONTA_NOME", nullable = false)
     private String nome;
 
+    @Size(min = 11, max = 11, message = "O CPF deve conter exatamente 11 dígitos")
     @Column(name = "CONTA_CPF", nullable = false, unique = true)
-    private long cpf;
+    private String cpf;
 
+    @Size(min = 11, max = 11, message = "O número de telefone deve conter exatamente 11 dígitos")
     @Column(name = "CONTA_TELEFONE", nullable = false)
-    private long telefone;
+    private String telefone;
 
+    @NotBlank(message = "O email não pode estar em branco")
     @Column(name = "CONTA_EMAIL", nullable = false, unique = true)
     private String email;
 
+    @Min(value = 18, message = "A idade mínima permitida é 18 anos")
+    @Max(value = 120, message = "A idade máxima permitida é 120 anos")
     @Column(name = "CONTA_IDADE", nullable = false)
     private int idade;
-
-
-
-    public Conta() {
-    }
-
-    public Conta(long id, long agencia, long numero, double saldo, int senha, String nome, long cpf, long telefone, String email, int idade) {
-        this.id = id;
-        this.agencia = agencia;
-        this.numero = numero;
-        this.saldo = saldo;
-        this.senha = senha;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
-        this.email = email;
-        this.idade = idade;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public Conta setId(long id) {
-        this.id = id;
-        return this;
-    }
-
-    public long getAgencia() {
-        return agencia;
-    }
-
-    public Conta setAgencia(long agencia) {
-        this.agencia = agencia;
-        return this;
-    }
-
-    public long getNumero() {
-        return numero;
-    }
-
-    public Conta setNumero(long numero) {
-        this.numero = numero;
-        return this;
-    }
-
-    public double getSaldo() {
-        return saldo;
-    }
-
-    public Conta setSaldo(double saldo) {
-        this.saldo = saldo;
-        return this;
-    }
-
-    public int getSenha() {
-        return senha;
-    }
-
-    public Conta setSenha(int senha) {
-        this.senha = senha;
-        return this;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public Conta setNome(String nome) {
-        this.nome = nome;
-        return this;
-    }
-
-    public long getCpf() {
-        return cpf;
-    }
-
-    public Conta setCpf(long cpf) {
-        this.cpf = cpf;
-        return this;
-    }
-
-    public long getTelefone() {
-        return telefone;
-    }
-
-    public Conta setTelefone(long telefone) {
-        this.telefone = telefone;
-        return this;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Conta setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public Conta setIdade(int idade) {
-        this.idade = idade;
-        return this;
-    }
 
     @Override
     public boolean equals(Object o) {
